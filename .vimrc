@@ -1,5 +1,5 @@
 call plug#begin()
-Plug 'terryma/vim-multiple-cursorsn'
+Plug 'terryma/vim-multiple-cursors'
 Plug 'itchyny/lightline.vim'
 call plug#end()
 
