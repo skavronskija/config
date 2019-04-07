@@ -1,6 +1,7 @@
 call plug#begin()
 Plug 'terryma/vim-multiple-cursors'
 Plug 'itchyny/lightline.vim'
+Plug 'tpope/vim-surround'
 call plug#end()
 
 " LIGHTLINE CONFIG
