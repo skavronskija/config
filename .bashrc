@@ -102,6 +102,10 @@ fi
 #alias ll='ls -l'
 #alias la='ls -A'
 #alias l='ls -CF'
+alias dc='docker-compose'
+alias d='docker'
+alias dv='docker volume'
+alias di='docker images'
 
 umask 022
 # Alias definitions.
