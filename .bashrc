@@ -62,7 +62,7 @@ git_branch() {
     then
         echo ''
     else
-        echo ' ['$branch']'
+        echo ' ('$branch')'
     fi
 }
 
@@ -106,6 +106,14 @@ alias dc='docker-compose'
 alias d='docker'
 alias dv='docker volume'
 alias di='docker images'
+
+source ~/.bash_completion.d/complete_alias
+
+complete -F _complete_alias d
+complete -F _complete_alias dv
+complete -F _complete_alias di
+complete -F _complete_alias dc
+
 
 umask 022
 # Alias definitions.
