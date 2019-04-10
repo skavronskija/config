@@ -10,6 +10,7 @@ let g:lightline = {
       \ 'colorscheme': 'one',
       \ }
 set noshowmode
+set ttimeout ttimeoutlen=30
 
 " OTHER
 colorscheme elflord
