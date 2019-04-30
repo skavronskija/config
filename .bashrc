@@ -109,6 +109,7 @@ alias di='docker images'
 
 alias mcc='mvn -T 1C clean compile'
 alias mcp='mvn -T 1C clean package'
+alias mci='mvn -T 1C clean install'
 
 source ~/.bash_completion.d/complete_alias
 
