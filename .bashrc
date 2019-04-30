@@ -107,6 +107,9 @@ alias d='docker'
 alias dv='docker volume'
 alias di='docker images'
 
+alias mcc='mvn -T 1C clean compile'
+alias mcp='mvn -T 1C clean package'
+
 source ~/.bash_completion.d/complete_alias
 
 complete -F _complete_alias d
