@@ -118,6 +118,7 @@ complete -F _complete_alias dv
 complete -F _complete_alias di
 complete -F _complete_alias dc
 
+shopt -s cdspell
 
 umask 022
 # Alias definitions.
