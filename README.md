@@ -3,7 +3,7 @@
 
 ```bash
 sudo apt-get update && \
-sudo apt-get install vim git -y
+sudo apt-get install vim git build-essential cmake python3-dev -y
 ```
 
 
