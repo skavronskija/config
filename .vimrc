@@ -2,7 +2,7 @@ call plug#begin()
 Plug 'terryma/vim-multiple-cursors'
 Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-surround'
-Plug 'valloric/youcompleteme'
+Plug 'davidhalter/jedi-vim'
 Plug 'vim-syntastic/syntastic'
 call plug#end()
 
@@ -35,6 +35,7 @@ set foldlevel=99
 " Enable folding with the spacebar 
 nnoremap <space> za
 
+let g:jedi#use_tabs_not_buffers = 1
 
 " tab as 4 spaces
 set tabstop=2 softtabstop=2 expandtab shiftwidth=2 smarttab
