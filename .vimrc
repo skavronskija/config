@@ -2,6 +2,8 @@ call plug#begin()
 Plug 'terryma/vim-multiple-cursors'
 Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-surround'
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
 Plug 'davidhalter/jedi-vim'
 Plug 'vim-syntastic/syntastic'
 call plug#end()
@@ -19,6 +21,9 @@ set pastetoggle=<F2>
 colorscheme elflord
 set number
 
+hi CursorLine cterm=NONE ctermbg=DarkRed ctermfg=Grey
+:nnoremap <Leader>c :set cursorline!<CR>
+
 " Split windows
 set splitbelow 
 set splitright
@@ -28,7 +33,7 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 nnoremap = <C-w>=
-
+" nmap <C-P> :ls<CR> 
 
 " Enable folding
 set foldmethod=indent
