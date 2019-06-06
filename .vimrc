@@ -21,7 +21,8 @@ set pastetoggle=<F2>
 colorscheme elflord
 set number
 
-hi CursorLine cterm=NONE ctermbg=DarkRed ctermfg=Grey
+" hi CursorLine cterm=NONE ctermbg=DarkRed ctermfg=Grey
+hi CursorLine   cterm=bold ctermbg=NONE ctermfg=1
 :nnoremap <Leader>c :set cursorline!<CR>
 
 " Split windows
