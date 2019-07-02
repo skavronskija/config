@@ -3,7 +3,7 @@
 
 ```bash
 sudo apt-get update && \
-sudo apt-get install vim git htop python3 maven -y
+sudo apt-get install vim git htop python3 maven bash-completion -y
 ```
 
 
