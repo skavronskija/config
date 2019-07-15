@@ -111,6 +111,9 @@ alias mcc='mvn clean compile'
 alias mcp='mvn clean package'
 alias mci='mvn clean install'
 
+alias tls='tmux list-sessions'
+alias ta='tmux attach -t'
+
 source ~/.bash_completion.d/complete_alias
 
 complete -F _complete_alias d
