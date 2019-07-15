@@ -69,7 +69,7 @@ git_branch() {
 if [ "$color_prompt" = yes ]; then
     PS1='\[\033[01;36m\][\t] ${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\[\033[01;31m\]\h\[\033[00m\]:\[\033[01;36m\]\w\[\033[01;31m\]$(git_branch)\[\033[00m\]\n\$ '
 else
-    PS1='$[\t] {debian_chroot:+($debian_chroot)}\u@\h:\w$(git_branch)\n\$ '
+    PS1='[\t] ${debian_chroot:+($debian_chroot)}\u@\h:\w$(git_branch)\n\$ '
 fi
 
 unset color_prompt force_color_prompt
