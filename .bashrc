@@ -1,136 +1,139 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
 
-# If not running interactively, don't do anything
-case $- in
-    *i*) ;;
-      *) return;;
-esac
+function command_exists () {
+  command -v "$1"  > /dev/null 2>&1;
+}
 
+# COLORS
+RED=""
+YELLOW=""
+GREEN=""
+BLUE=""
+CYAN=""
+PURPLE=""
+LIGHT_RED=""
+LIGHT_GREEN=""
+LIGHT_CYAN=""
+WHITE=""
+LIGHT_GRAY=""
+NORMAL=""
+# check if stdout is a terminal...
+if test -t 1; then
+  # see if it supports colors...
+  force_color_prompt=yes
+  color_prompt=yes
+  export TERM="xterm-256color"
+  RED="\[\033[0;31m\]"
+  YELLOW="\[\033[1;33m\]"
+  GREEN="\[\033[0;32m\]"
+  BLUE="\[\033[1;34m\]"
+  PURPLE="\[\033[0;35m\]"
+  CYAN="\[\033[0;36m\]"
+  LIGHT_RED="\[\033[1;31m\]"
+  LIGHT_GREEN="\[\033[1;32m\]"
+  LIGHT_CYAN="\[\033[1;36m\]"
+  WHITE="\[\033[1;37m\]"
+  LIGHT_GRAY="\[\033[0;37m\]"
+  NORMAL="\[\e[0m\]"
+  # enable color support of ls and also add handy aliases
+  bind 'set colored-completion-prefix on'
+  bind 'set colored-stats on'
+  alias ls='ls --color=auto'
+  alias less='less -R'
+  alias dir='dir --color=auto'
+  alias vdir='vdir --color=auto'
+  alias grep='grep --color=auto'
+  alias fgrep='fgrep --color=auto'
+  alias egrep='egrep --color=auto'
+  # NAVIGATION
+  bind '"\e[1;5C":forward-word'
+  bind '"\e[1;5D":backward-word'
+  # bind '"\eOD":backward-word'
+  # bind '"\eOC":forward-word'
+  # bind '"\eOA":history-search-backward'
+  # bind '"\eOB":history-search-forward'
+  bind '"\e[A":history-search-backward'
+  bind '"\e[B":history-search-forward'
+
+  bind 'set completion-ignore-case on'
+  bind 'set show-all-if-ambiguous on'
+  bind 'set completion-query-items 30'
+  bind 'set editing-mode emacs'
+fi
+
+# HISTORY
 # don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTCONTROL=ignoreboth
+HISTSIZE=
+HISTFILESIZE=
+HISTFILE=$HOME/.hist_bash
+HISTTIMEFORMAT="%F %T "
 
 # append to the history file, don't overwrite it
 shopt -s histappend
-
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
-
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
 shopt -s checkwinsize
-
-# If set, the pattern "**" used in a pathname expansion context will
-# match all files and zero or more directories and subdirectories.
-#shopt -s globstar
+shopt -s cdspell
+shopt -s globstar
 
 # make less more friendly for non-text input files, see lesspipe(1)
-#[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
-fi
 
-# set a fancy prompt (non-color, unless we know we "want" color)
-case "$TERM" in
-    xterm-color|*-256color) color_prompt=yes;;
-esac
-
-# uncomment for a colored prompt, if the terminal has the capability; turned
-# off by default to not distract the user: the focus in a terminal window
-# should be on the output of commands, not on the prompt
-#force_color_prompt=yes
-
-if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
-    else
-	color_prompt=
-    fi
-fi
-
-git_branch() {
-    branch=$(git branch 2>/dev/null | grep '^*' | colrm 1 2)
-    if [ -z "$branch" ]
-    then
-        echo ''
-    else
-        echo ' ('$branch')'
-    fi
-}
-
-if [ "$color_prompt" = yes ]; then
-    PS1='\[\033[01;36m\][\t] ${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\[\033[01;31m\]\h\[\033[00m\]:\[\033[01;36m\]\w\[\033[01;31m\]$(git_branch)\[\033[00m\]\n\$ '
-else
-    PS1='[\t] ${debian_chroot:+($debian_chroot)}\u@\h:\w$(git_branch)\n\$ '
-fi
-
-unset color_prompt force_color_prompt
-
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
-esac
-
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-
-    #alias grep='grep --color=auto'
-    #alias fgrep='fgrep --color=auto'
-    #alias egrep='egrep --color=auto'
-fi
-
-# colored GCC warnings and errors
-#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
-
+# ALIASES
 # some more ls aliases
-#alias ll='ls -l'
-#alias la='ls -A'
-#alias l='ls -CF'
-alias dc='docker-compose'
-alias d='docker'
-alias dv='docker volume'
-alias di='docker images'
+alias arch='uname -m'
+alias ll='ls -ahlF --time-style=long-iso'
+alias la='ls -A'
+alias L='|less'
+alias G='|grep'
+alias ~='cd $HOME'
 
-alias mcc='mvn clean compile'
-alias mcp='mvn clean package'
-alias mci='mvn clean install'
-
-alias tls='tmux list-sessions'
-alias ta='tmux attach -t'
-
-source ~/.bash_completion.d/complete_alias
-
-complete -F _complete_alias d
-complete -F _complete_alias dv
-complete -F _complete_alias di
-complete -F _complete_alias dc
-
-shopt -s cdspell
-
-umask 022
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
+                                 
+alias mcc='mvn clean compile'    
+alias mcp='mvn clean package'    
+alias mci='mvn clean install'    
+                                 
 
 if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+  . ~/.bash_aliases
+fi
+
+# BINS CONDITIONS
+SUDO=''
+if [[ $EUID -ne 0 ]] && command_exists sudo ; then
+  complete -cf sudo
+  SUDO='sudo'
+fi
+
+if command_exists tmux ; then
+	alias tl='tmux list-sessions'    
+	alias ta='tmux attach -t'        
+fi
+
+if command_exists docker ; then
+  # Docker
+	alias dc='docker-compose'        
+	alias d='docker'                 
+	alias dv='docker volume'         
+	alias di='docker images'         
+fi
+
+#if [ -d /usr/lib/jvm/default ]; then
+#  export JAVA_HOME=/usr/lib/jvm/default
+#elif [ -d /usr/lib/jvm/default-java ]; then
+#  export JAVA_HOME=/usr/lib/jvm/default-java
+#fi
+
+export EDITOR='vim'
+
+if command_exists git; then
+  alias pll="git pull origin"
+  alias psh="git push origin"
+  alias gst="git status"
+  alias gco="git checkout"
+  alias gadd="git add ."
+  alias gcmt="git commit -m"
 fi
 
 # enable programmable completion features (you don't need to enable
@@ -143,3 +146,74 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+LOCAL_BIN=$HOME/.local/bin
+if [ -d $LOCAL_BIN ]; then
+  export PATH=$PATH:$LOCAL_BIN
+fi
+
+# PROMPT
+# get current status of git repo
+function parse_git_branch(){
+  git branch 2> /dev/null | sed -n 's/^\* //p'
+}
+# Determine the branch/state information for this git repository.
+function set_git_branch() {
+  # Get the name of the branch.
+  BRANCH=""
+  if command_exists git_status ; then
+    branch="$(git_status bash)"
+  else
+    branch="$(parse_git_branch)"
+  fi
+
+  if [ ! "${branch}" == "" ]; then
+    BRANCH=" ${PURPLE}($branch)${NORMAL}"
+  fi
+}
+
+# Return the prompt symbol to use, colorized based on the return value of the
+# previous command.
+function set_prompt_symbol () {
+  if test $1 -eq 0 ; then
+    P_SYMBOL="${GREEN}\n➤${NORMAL} "
+  else
+    P_SYMBOL="${LIGHT_RED}\n➤${NORMAL} "
+  fi
+}
+
+function new_line () {
+  NEW_LINE=""
+  echo -en "\033[6n" > /dev/tty && read -sdR CURPOS
+  if [[ ${CURPOS##*;} -gt 1 ]]; then
+      NEW_LINE="${RED}¬\n${NORMAL}"
+  fi
+}
+
+# Set the full bash prompt.
+function set_bash_prompt () {
+  local EXIT_CODE="$?"
+  local USERCOLOR="${LIGHT_GREEN}"
+  # Set the P_SYMBOL variable. We do this first so we don't lose the
+  # return value of the last command.
+  new_line
+
+  set_prompt_symbol $EXIT_CODE
+
+  # Set the BRANCH variable.
+  set_git_branch
+
+  # history -a
+  # history -c
+  # history -r
+  if [[ $EUID -eq 0 ]] ; then
+    USERCOLOR="${RED}"
+  fi
+
+  # Set the bash prompt variable.
+  PS1="${NEW_LINE}${LIGHT_CYAN}\A${NORMAL} ${USERCOLOR}\u${NORMAL}@\h:${WHITE}[${LIGHT_GREEN}\w${WHITE}]${BRANCH}${P_SYMBOL}"
+}
+
+# Tell bash to execute this function just before displaying its prompt.
+export PROMPT_COMMAND=set_bash_prompt
+
