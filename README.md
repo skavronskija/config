@@ -4,8 +4,6 @@
 ```bash
 sudo apt-get update && \
 sudo apt-get install tmux vim git htop zsh python3 maven bash-completion -y
-
-sh -c "$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
 ```
 
 oh-my-zsh:
