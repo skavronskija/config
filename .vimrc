@@ -23,7 +23,8 @@ set number
 
 " hi CursorLine cterm=NONE ctermbg=DarkRed ctermfg=Grey
 hi CursorLine   cterm=bold ctermbg=NONE ctermfg=1
-:nnoremap <Leader>c :set cursorline!<CR>
+nnoremap <Leader>c :set cursorline!<CR>
+nnoremap <F3> :set hlsearch!<CR>
 
 " Split windows
 set splitbelow 

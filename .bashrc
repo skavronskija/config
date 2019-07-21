@@ -39,12 +39,6 @@ if test -t 1; then
   bind 'set colored-completion-prefix on'
   bind 'set colored-stats on'
   alias ls='ls --color=auto'
-  alias less='less -R'
-  alias dir='dir --color=auto'
-  alias vdir='vdir --color=auto'
-  alias grep='grep --color=auto'
-  alias fgrep='fgrep --color=auto'
-  alias egrep='egrep --color=auto'
   # NAVIGATION
   bind '"\e[1;5C":forward-word'
   bind '"\e[1;5D":backward-word'
@@ -82,11 +76,8 @@ shopt -s globstar
 
 # ALIASES
 # some more ls aliases
-alias arch='uname -m'
 alias ll='ls -ahlF --time-style=long-iso'
 alias la='ls -A'
-alias L='|less'
-alias G='|grep'
 alias ~='cd $HOME'
 
                                  
@@ -128,12 +119,13 @@ fi
 export EDITOR='vim'
 
 if command_exists git; then
-  alias pll="git pull origin"
-  alias psh="git push origin"
+  alias gpl="git pull origin"
+  alias gpu="git push origin"
   alias gst="git status"
   alias gco="git checkout"
-  alias gadd="git add ."
-  alias gcmt="git commit -m"
+  alias ga="git add"
+  alias gaa="git add ."
+  alias gcm="git commit -m"
 fi
 
 # enable programmable completion features (you don't need to enable
@@ -193,7 +185,7 @@ function new_line () {
 # Set the full bash prompt.
 function set_bash_prompt () {
   local EXIT_CODE="$?"
-  local USERCOLOR="${LIGHT_GREEN}"
+  local USERCOLOR="${GREEN}"
   # Set the P_SYMBOL variable. We do this first so we don't lose the
   # return value of the last command.
   new_line
@@ -211,7 +203,7 @@ function set_bash_prompt () {
   fi
 
   # Set the bash prompt variable.
-  PS1="${NEW_LINE}${LIGHT_CYAN}\A${NORMAL} ${USERCOLOR}\u${NORMAL}@\h:${WHITE}[${LIGHT_GREEN}\w${WHITE}]${BRANCH}${P_SYMBOL}"
+  PS1="${NEW_LINE}${LIGHT_CYAN}\A${NORMAL} ${USERCOLOR}\u${NORMAL}@\h:${WHITE}[${GREEN}\w${WHITE}]${BRANCH}${P_SYMBOL}"
 }
 
 # Tell bash to execute this function just before displaying its prompt.
