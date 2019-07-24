@@ -104,7 +104,7 @@ export EDITOR='vim'
 
 if command_exists git; then
   alias gpl="git pull origin"
-  alias gpu="git push origin"
+  alias gps="git push origin"
   alias gst="git status"
   alias gco="git checkout"
   alias ga="git add"
