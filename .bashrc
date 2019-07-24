@@ -36,23 +36,7 @@ if test -t 1; then
   LIGHT_GRAY="\[\033[0;37m\]"
   NORMAL="\[\e[0m\]"
   # enable color support of ls and also add handy aliases
-  bind 'set colored-completion-prefix on'
-  bind 'set colored-stats on'
   alias ls='ls --color=auto'
-  # NAVIGATION
-  bind '"\e[1;5C":forward-word'
-  bind '"\e[1;5D":backward-word'
-  # bind '"\eOD":backward-word'
-  # bind '"\eOC":forward-word'
-  # bind '"\eOA":history-search-backward'
-  # bind '"\eOB":history-search-forward'
-  bind '"\e[A":history-search-backward'
-  bind '"\e[B":history-search-forward'
-
-  bind 'set completion-ignore-case on'
-  bind 'set show-all-if-ambiguous on'
-  bind 'set completion-query-items 30'
-  bind 'set editing-mode emacs'
 fi
 
 # HISTORY
