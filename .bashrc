@@ -39,6 +39,8 @@ if test -t 1; then
   alias ls='ls --color=auto'
 fi
 
+umask 022
+
 # HISTORY
 # don't put duplicate lines or lines starting with space in the history.
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
@@ -127,6 +129,14 @@ LOCAL_BIN=$HOME/.local/bin
 if [ -d $LOCAL_BIN ]; then
   export PATH=$PATH:$LOCAL_BIN
 fi
+
+# Autocomplete
+source ~/.bash_completion.d/complete_alias
+complete -F _complete_alias d
+complete -F _complete_alias dv
+complete -F _complete_alias di
+complete -F _complete_alias dc
+
 
 # PROMPT
 # get current status of git repo
