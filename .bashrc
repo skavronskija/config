@@ -62,7 +62,8 @@ shopt -s globstar
 
 # ALIASES
 # some more ls aliases
-alias ll='ls -ahlF --time-style=long-iso'
+alias ll='ls -hlF --time-style=long-iso'
+alias lla='ls -ahlF --time-style=long-iso'
 alias la='ls -A'
 alias ~='cd $HOME'
 
