@@ -169,13 +169,13 @@ function set_prompt_symbol () {
   fi
 }
 
-function new_line () {
-  NEW_LINE=""
-  echo -en "\033[6n" > /dev/tty && read -sdR CURPOS
-  if [[ ${CURPOS##*;} -gt 1 ]]; then
-      NEW_LINE="${RED}¬\n${NORMAL}"
-  fi
-}
+# function new_line () {
+#   NEW_LINE=""
+#   echo -en "\033[6n" > /dev/tty && read -sdR CURPOS
+#   if [[ ${CURPOS##*;} -gt 1 ]]; then
+#       NEW_LINE="${RED}¬\n${NORMAL}"
+#   fi
+# }
 
 # Set the full bash prompt.
 function set_bash_prompt () {
@@ -183,7 +183,7 @@ function set_bash_prompt () {
   local USERCOLOR="${GREEN}"
   # Set the P_SYMBOL variable. We do this first so we don't lose the
   # return value of the last command.
-  new_line
+  # new_line
 
   set_prompt_symbol $EXIT_CODE
 
