@@ -65,8 +65,7 @@ shopt -s globstar
 alias ll='ls -hlF --time-style=long-iso'
 alias lla='ls -ahlF --time-style=long-iso'
 alias la='ls -A'
-alias ~='cd $HOME'
-
+alias update='sudo -- sh -c "apt-get update && apt-get dist-upgrade -y"' 
                                  
 alias mcc='mvn clean compile'    
 alias mcp='mvn clean package'    
