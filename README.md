@@ -1,11 +1,11 @@
-# vimconfig
-
+# common
 ```bash
 sudo apt-get update && \
 sudo apt-get install tmux vim git htop python3 maven bash-completion rsync -y
 ```
 
-in vim
+# vimconfig
+
 ```bash
 :PlugInstall
 ```
