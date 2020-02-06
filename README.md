@@ -13,5 +13,5 @@ in vim
 
 ssh keygen
 ```bash
-sh-keygen -t rsa -C "your_email@example.com"
+ssh-keygen -t rsa -C "your_email@example.com"
 ```
