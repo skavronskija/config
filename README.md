@@ -10,3 +10,8 @@ in vim
 ```bash
 :PlugInstall
 ```
+
+ssh keygen
+```bash
+sh-keygen -t rsa -C "your_email@example.com"
+```
