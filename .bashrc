@@ -114,6 +114,10 @@ if command_exists git; then
   alias gcm="git commit -m"
 fi
 
+if command_exists aws; then
+  complete -C aws_completer aws
+fi
+
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
