@@ -21,6 +21,11 @@ sudo wget https://github.com/bcicen/ctop/releases/download/v0.7.3/ctop-0.7.3-lin
 sudo chmod +x /usr/local/bin/ctop
 ```
 
+# lazydocker
+```bash
+curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash
+```
+
 # docker
 Remove images without tags
 ```bash
