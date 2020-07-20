@@ -77,11 +77,11 @@ if [ -f ~/.bash_aliases ]; then
 fi
 
 # BINS CONDITIONS
-SUDO=''
-if [[ $EUID -ne 0 ]] && command_exists sudo ; then
-  complete -cf sudo
-  SUDO='sudo'
-fi
+# SUDO=''
+# if [[ $EUID -ne 0 ]] && command_exists sudo ; then
+#   complete -cf sudo
+#   SUDO='sudo'
+# fi
 
 if command_exists tmux ; then
 	alias tl='tmux list-sessions'    
