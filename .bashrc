@@ -112,6 +112,7 @@ if command_exists git; then
   alias ga="git add"
   alias gaa="git add ."
   alias gcm="git commit -m"
+  alias gb="git branch"
 fi
 
 if command_exists aws; then
