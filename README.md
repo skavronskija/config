@@ -1,7 +1,7 @@
 # common
 ```bash
 sudo apt-get update && \
-sudo apt-get install mc ncdu tmux vim git htop python3 maven bash-completion rsync -y
+sudo apt-get install mc ncdu tmux vim git htop python3 maven bash-completion rsync bat -y
 ```
 
 # vimconfig
