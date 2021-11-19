@@ -1,9 +1,6 @@
 call plug#begin()
-Plug 'terryma/vim-multiple-cursors'
 Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-surround'
-Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
 Plug 'davidhalter/jedi-vim'
 Plug 'vim-syntastic/syntastic'
 call plug#end()
