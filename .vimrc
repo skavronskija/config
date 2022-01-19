@@ -1,7 +1,6 @@
 call plug#begin()
 Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-surround'
-Plug 'davidhalter/jedi-vim'
 Plug 'vim-syntastic/syntastic'
 call plug#end()
 
