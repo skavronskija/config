@@ -71,6 +71,9 @@ alias mcc='mvn clean compile'
 alias mcp='mvn clean package'    
 alias mci='mvn clean install'    
                                  
+alias reboot='sudo reboor'    
+alias shutdown='sudo shutdown -h now'    
+alias suspend='sudo systemctl suspend'    
 
 if [ -f ~/.bash_aliases ]; then
   . ~/.bash_aliases
