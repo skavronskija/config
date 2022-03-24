@@ -71,7 +71,7 @@ alias mcc='mvn clean compile'
 alias mcp='mvn clean package'    
 alias mci='mvn clean install'    
                                  
-alias reboot='sudo reboor'    
+alias reboot='sudo reboot'    
 alias shutdown='sudo shutdown -h now'    
 alias suspend='sudo systemctl suspend'    
 
