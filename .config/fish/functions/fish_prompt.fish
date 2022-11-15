@@ -51,5 +51,5 @@ function fish_prompt
     # Shorten pwd if prompt is too long
     set -l pwd (prompt_pwd)
 
-    echo -e -n -s $USER: $prompt_host [$cwd $pwd $normal] $prompt_status $delim
+    echo -e -n -s $usercolor $USER $prompt_host $normal ' ['$cwd $pwd $normal '] ' $prompt_status $usercolor $delim
 end
