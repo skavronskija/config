@@ -18,6 +18,7 @@ SETUVAR _fish_abbr_gco:git\x20checkout
 SETUVAR _fish_abbr_gpl:git\x20pull\x20origin
 SETUVAR _fish_abbr_gps:git\x20push\x20origin
 SETUVAR _fish_abbr_gst:git\x20status\x20\x2dsb
+SETUVAR _fish_abbr_lla:ls\x20\x2dahlF
 SETUVAR _fish_abbr_mcc:mvn\x20clean\x20compile
 SETUVAR _fish_abbr_mci:mvn\x20clean\x20install
 SETUVAR _fish_abbr_mcp:mvn\x20clean\x20package
