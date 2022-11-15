@@ -4,7 +4,7 @@ function fish_prompt
     set -l normal (set_color normal)
     set -l usercolor (set_color $fish_color_user)
 
-    set -l delim ' ➤ '
+    set -l delim '\n➤ '
     # If we don't have unicode use a simpler delimiter
     string match -qi "*.utf-8" -- $LANG $LC_CTYPE $LC_ALL; or set delim ">"
 
@@ -51,5 +51,5 @@ function fish_prompt
     # Shorten pwd if prompt is too long
     set -l pwd (prompt_pwd)
 
-    echo -n -s $prompt_host $cwd $pwd $normal $prompt_status $delim
+    echo -e -n -s $USER: $prompt_host [$cwd $pwd $normal] $prompt_status $delim
 end
