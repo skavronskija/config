@@ -4,7 +4,7 @@ export PATH=/opt/homebrew/bin:/opt/maven/bin:/usr/local/bin:$PATH
 export JAVA_HOME=`/usr/libexec/java_home -v 17.0.4.1`
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/skavronskija/.oh-my-zsh"
+export ZSH="~/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
