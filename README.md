@@ -7,6 +7,7 @@ sudo apt install fish fzf mc ncdu tmux vim git htop python3 bash-completion rsyn
 make `batcat` a `bat` in debian  
 ```bash
 mkdir -p ~/.local/bin && ln -s /usr/bin/batcat ~/.local/bin/bat
+```
 
 # fish
 ```bash
