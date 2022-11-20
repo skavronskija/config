@@ -7,6 +7,7 @@ sudo apt install fzf mc ncdu tmux vim git htop python3 bash-completion rsync bat
 make `batcat` a `bat` in debian  
 ```bash
 mkdir -p ~/.local/bin && ln -s /usr/bin/batcat ~/.local/bin/bat
+```
 
 # zsh
 ```bash
