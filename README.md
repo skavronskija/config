@@ -1,7 +1,7 @@
 # common
 ```bash
 sudo apt update && \
-sudo apt install fzf mc ncdu tmux vim git htop python3 bash-completion rsync bat -y
+sudo apt install fzf duf mc ncdu tmux vim git htop python3 bash-completion rsync bat -y
 ```
 
 make `batcat` a `bat` in debian  
