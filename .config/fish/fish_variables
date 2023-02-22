@@ -69,3 +69,4 @@ SETUVAR fish_pager_color_selected_completion:\x1d
 SETUVAR fish_pager_color_selected_description:\x1d
 SETUVAR fish_pager_color_selected_prefix:\x1d
 SETUVAR fish_user_paths:/usr/local/bin\x1e/opt/maven/bin\x1e/opt/homebrew/bin
+SETUVAR HOMEBREW_NO_ANALYTICS:1
