@@ -2,6 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 export PATH=/opt/homebrew/bin:/opt/maven/bin:/usr/local/bin:$PATH
 export JAVA_HOME=`/usr/libexec/java_home -v 17.0.4.1`
+export HOMEBREW_NO_ANALYTICS=1
 
 # Path to your oh-my-zsh installation.
 export ZSH="~/.oh-my-zsh"
@@ -151,6 +152,3 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 autoload -Uz compinit && compinit
 
-
-# Load Angular CLI autocompletion.
-source <(ng completion script)
