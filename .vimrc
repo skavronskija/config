@@ -2,6 +2,7 @@ call plug#begin()
 Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-surround'
 Plug 'vim-syntastic/syntastic'
+Plug 'vim/colorschemes'
 call plug#end()
 
 " LIGHTLINE CONFIG
