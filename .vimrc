@@ -14,11 +14,9 @@ set noshowmode
 set ttimeout ttimeoutlen=30
 
 set pastetoggle=<F2>
-colorscheme elflord
+colorscheme retrobox
 set number
 
-" hi CursorLine cterm=NONE ctermbg=DarkRed ctermfg=Grey
-hi CursorLine   cterm=bold ctermbg=NONE ctermfg=1
 nnoremap <Leader>c :set cursorline!<CR>
 nnoremap <F3> :set hlsearch!<CR>
 
@@ -54,3 +52,9 @@ au BufNewFile,BufRead *.py
 
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 cmap w!! w !sudo tee > /dev/null %
+
+" Workaround for creating transparent bg
+autocmd SourcePost * highlight Normal     ctermbg=NONE guibg=NONE
+        \ | highlight LineNr     ctermbg=NONE guibg=NONE
+        \ | highlight SignColumn ctermbg=NONE guibg=NONE
+        \ | highlight CursorLine cterm=bold ctermbg=NONE ctermfg=1
