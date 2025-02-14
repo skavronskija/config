@@ -1,7 +1,7 @@
 # common
 ```bash
 sudo apt update && \
-sudo apt install tldr fzf duf mc ncdu tmux vim git htop python3 bash-completion rsync bat neofetch speedtest-cli -y
+sudo apt install tldr fzf duf mc ncdu tmux vim git htop python3 lnav bash-completion rsync bat neofetch speedtest-cli -y
 ```
 
 make `batcat` a `bat` in debian  
