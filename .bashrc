@@ -65,15 +65,15 @@ shopt -s globstar
 alias ll='ls -hlF --time-style=long-iso'
 alias lla='ls -ahlF --time-style=long-iso'
 alias la='ls -A'
-alias upd='sudo -- sh -c "apt update && apt full-upgrade -y"' 
-                                 
-alias mcc='mvn clean compile'    
-alias mcp='mvn clean package'    
-alias mci='mvn clean install'    
-                                 
-alias reboot='sudo reboot'    
-alias shutdown='sudo shutdown -h now'    
-alias suspend='sudo systemctl suspend'    
+alias upd='sudo -- sh -c "apt update && apt full-upgrade -y"'
+
+alias mcc='mvn clean compile'
+alias mcp='mvn clean package'
+alias mci='mvn clean install'
+
+alias reboot='sudo reboot'
+alias shutdown='sudo shutdown -h now'
+alias suspend='sudo systemctl suspend'
 
 if [ -f ~/.bash_aliases ]; then
   . ~/.bash_aliases
@@ -87,16 +87,16 @@ fi
 # fi
 
 if command_exists tmux ; then
-	alias tl='tmux list-sessions'    
-	alias ta='tmux attach -t'        
+	alias tl='tmux list-sessions'
+	alias ta='tmux attach -t'
 fi
 
 if command_exists docker ; then
   # Docker
-	alias dc='docker compose'        
-	alias d='docker'                 
-	alias dv='docker volume'         
-	alias di='docker images'         
+	alias dc='docker compose'
+	alias d='docker'
+	alias dv='docker volume'
+	alias di='docker images'
 fi
 
 #if [ -d /usr/lib/jvm/default ]; then
@@ -210,4 +210,3 @@ function set_bash_prompt () {
 
 # Tell bash to execute this function just before displaying its prompt.
 export PROMPT_COMMAND=set_bash_prompt
-

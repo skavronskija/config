@@ -76,7 +76,7 @@ ZSH_THEME="amuse-mod"
 plugins=(
   git
   zsh-autosuggestions
-  docker 
+  docker
   docker-compose
 )
 
@@ -126,7 +126,7 @@ fi
 
 if type "docker" > /dev/null; then
   # Docker
-  alias dc='docker-compose'
+  alias dc='docker compose'
   alias d='docker'
   alias dv='docker volume'
   alias di='docker images'
@@ -151,4 +151,3 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 autoload -Uz compinit && compinit
-
