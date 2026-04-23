@@ -1,0 +1,147 @@
+local cfg = {
+  timeoutSeconds = 60,
+  en = "com.apple.keylayout.British-PC",
+  ru = "org.sil.ukelele.keyboardlayout.russianphineticmod.russian‭-‬phoneticmod",
+  notify = false,
+  logLevel = "info",
+  emailHotkeys = {
+    ["'"] = "anton.skavronskij@gmail.com",
+    [";"] = "anton.skavronskij@distilled.ie",
+  },
+  forceEnApps = {
+    ["IntelliJ IDEA"] = true,
+    ["IntelliJ IDEA CE"] = true,
+    ["Slack"] = true,
+    ["WezTerm"] = true,
+    ["kitty"] = true,
+  }
+}
+
+local log = hs.logger.new("lang", cfg.logLevel)
+
+local timer -- will hold hs.timer object
+local ruKeystrokeTap -- eventtap for RU typing
+
+local function stopTimer()
+  if timer then
+    timer:stop()
+    timer = nil
+    log.d("Timer stopped")
+  end
+end
+
+local function autoRevert()
+  if hs.keycodes.currentSourceID() ~= cfg.en then
+    hs.keycodes.currentSourceID(cfg.en)
+    log.i("Auto-reverted to EN")
+    if cfg.notify then
+      hs.notify.new({title="Keyboard", informativeText="Switched back to English"}):send()
+    end
+  end
+  stopTimer()
+  -- Stop key tap (no need while EN)
+  if ruKeystrokeTap then ruKeystrokeTap:stop() end
+end
+
+local function startTimer()
+  stopTimer()
+  timer = hs.timer.doAfter(cfg.timeoutSeconds, autoRevert)
+  log.d("Timer (re)started for RU inactivity")
+end
+
+local function ensureRuTap()
+  if ruKeystrokeTap and ruKeystrokeTap:isEnabled() then return end
+  if not ruKeystrokeTap then
+    ruKeystrokeTap = hs.eventtap.new({ hs.eventtap.event.types.keyDown }, function()
+      -- Each key press in RU resets inactivity timer
+      if hs.keycodes.currentSourceID() == cfg.ru then
+        startTimer()
+      end
+      return false
+    end)
+  end
+  ruKeystrokeTap:start()
+end
+
+local function switchTo(sourceID)
+  if sourceID == cfg.ru then
+    hs.keycodes.currentSourceID(cfg.ru)
+    ensureRuTap()
+    startTimer()
+  else
+    hs.keycodes.currentSourceID(cfg.en)
+    if ruKeystrokeTap then ruKeystrokeTap:stop() end
+    stopTimer()
+  end
+end
+
+local function toggle()
+  if hs.keycodes.currentSourceID() == cfg.en then
+    switchTo(cfg.ru)
+  else
+    switchTo(cfg.en)
+  end
+end
+
+-- Hotkey to toggle (consider changing if conflicting)
+hs.hotkey.bind({"alt"}, "space", function()
+  toggle()
+  return false
+end)
+
+-- Emails (data-driven)
+for key, address in pairs(cfg.emailHotkeys) do
+  hs.hotkey.bind({"ctrl","cmd","alt","shift"}, key, function()
+    hs.eventtap.keyStrokes(address)
+  end)
+end
+
+-- New hotkey: ctrl+cmd+alt+shift+L -> Name<TAB>LastName<TAB>0861234567
+hs.hotkey.bind({"ctrl","cmd","alt","shift"}, "L", function()
+  hs.eventtap.keyStrokes("Anton")
+  hs.timer.usleep(100000)           -- 100 ms
+  hs.eventtap.keyStroke({}, "tab")
+  hs.timer.usleep(100000)           -- 100 ms
+  hs.eventtap.keyStrokes("Test")
+  hs.eventtap.keyStroke({}, "tab")
+  hs.timer.usleep(100000)           -- 100 ms
+  hs.eventtap.keyStrokes("anton.skavronskij@distilled.ie")
+  hs.eventtap.keyStroke({}, "tab")
+  hs.timer.usleep(100000)           -- 100 ms
+  hs.eventtap.keyStrokes("0861234567")
+  hs.eventtap.keyStroke({}, "tab")
+  hs.timer.usleep(100000)           -- 100 ms
+  hs.eventtap.keyStrokes("this is the message")
+  hs.eventtap.keyStroke({}, "tab")
+  hs.timer.usleep(100000)           -- 100 ms
+end)
+
+-- React if user changes layout externally (menu, system shortcut)
+hs.keycodes.inputSourceChanged(function()
+  local current = hs.keycodes.currentSourceID()
+  log.d("Input source changed externally: " .. tostring(current))
+  if current == cfg.ru then
+    ensureRuTap()
+    startTimer()
+  else
+    if ruKeystrokeTap then ruKeystrokeTap:stop() end
+    stopTimer()
+  end
+end)
+
+local function appActivationWatcher(appName, eventType, appObject)
+  if eventType == hs.application.watcher.activated then
+    if cfg.forceEnApps[appName] then
+      if hs.keycodes.currentSourceID() ~= cfg.en then
+        switchTo(cfg.en)
+      end
+    end
+  end
+end
+
+appWatcher = hs.application.watcher.new(appActivationWatcher)
+appWatcher:start()
+
+-- Initialize (start clean in EN; adjust if you prefer preserving current)
+switchTo(cfg.en)
+

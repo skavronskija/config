@@ -17,6 +17,7 @@ set ttimeout ttimeoutlen=30
 set pastetoggle=<F2>
 colorscheme retrobox
 set number
+set relativenumber
 
 nnoremap <Leader>c :set cursorline!<CR>
 nnoremap <F3> :set hlsearch!<CR>
@@ -24,6 +25,7 @@ nnoremap <F3> :set hlsearch!<CR>
 " Split windows
 set splitbelow 
 set splitright
+set background=dark
 
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
