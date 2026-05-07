@@ -93,7 +93,7 @@ fi
 
 if command_exists docker ; then
   # Docker
-	alias dc='docker-compose'        
+	alias dc='docker compose'        
 	alias d='docker'                 
 	alias dv='docker volume'         
 	alias di='docker images'         
