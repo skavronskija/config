@@ -2,54 +2,166 @@
 
 cd "$(dirname "${BASH_SOURCE}")";
 
-EXCLUDES=(".DS_Store" ".osx" "LICENSE-MIT.txt" "README.md" "bootstrap.sh" "gather.sh");
+IGNORE_FILE=".gatherignore";
 
-function isExcluded() {
-	local file="$1";
-	local excluded;
-	for excluded in "${EXCLUDES[@]}"; do
-		if [ "$file" == "$excluded" ]; then
-			return 0;
-		fi;
-	done;
+shopt -s nullglob dotglob;
+
+function isIgnoredEntry() {
+	local path="$1";
+	local base="${path##*/}";
+	local pattern;
+	local stripped;
+
+	while IFS= read -r pattern || [ -n "$pattern" ]; do
+		case "$pattern" in
+			""|"#"*|"!"*)
+				continue;
+				;;
+			"/"*)
+				stripped="${pattern#/}";
+				stripped="${stripped%/}";
+				if [ "$path" == "$stripped" ]; then
+					return 0;
+				fi;
+				;;
+			*)
+				stripped="${pattern%/}";
+				case "$stripped" in
+					*/*)
+						continue;
+						;;
+					*)
+						if [[ "$base" == $stripped ]]; then
+							return 0;
+						fi;
+						;;
+				esac;
+				;;
+		esac;
+	done < "$IGNORE_FILE";
+
 	return 1;
 }
 
+function hasDirectFiles() {
+	local dir="$1";
+	local entry;
+	local rel;
+
+	for entry in "./${dir}"/*; do
+		if [ -f "$entry" ] || [ -L "$entry" ]; then
+			rel="${entry#./}";
+			if ! isIgnoredEntry "$rel"; then
+				return 0;
+			fi;
+		fi;
+	done;
+
+	return 1;
+}
+
+function collectRoots() {
+	local dir="$1";
+	local entry;
+	local rel;
+
+	if hasDirectFiles "$dir"; then
+		echo "$dir";
+		return;
+	fi;
+
+	for entry in "./${dir}"/*; do
+		if [ -d "$entry" ]; then
+			rel="${entry#./}";
+			if ! isIgnoredEntry "$rel"; then
+				collectRoots "$rel";
+			fi;
+		fi;
+	done;
+}
+
+function buildSyncList() {
+	local entry;
+	local rel;
+
+	for entry in ./*; do
+		rel="${entry#./}";
+
+		if isIgnoredEntry "$rel"; then
+			continue;
+		fi;
+
+		if [ -d "$entry" ]; then
+			collectRoots "$rel";
+		elif [ -f "$entry" ] || [ -L "$entry" ]; then
+			echo "$rel";
+		fi;
+	done;
+}
+
 function doIt() {
+	local syncList=();
+	local present=();
 	local missing=0;
-	local unchanged=0;
+	local new=0;
 	local updated=0;
-	local file;
-	local src;
+	local entry;
+	local listFile;
+	local dryFlag="";
+	local line;
+	local flags;
+	local path;
 
-	while IFS= read -r -d '' file; do
-		if isExcluded "$file"; then
-			continue;
-		fi;
+	while IFS= read -r entry; do
+		syncList+=("$entry");
+	done < <(buildSyncList);
 
-		src="${HOME}/${file}";
-
-		if [ ! -f "$src" ]; then
-			echo "  missing    ${file}";
+	for entry in "${syncList[@]}"; do
+		if [ -e "${HOME}/${entry}" ]; then
+			present+=("$entry");
+		else
+			echo "  missing    ${entry}";
 			missing=$((missing + 1));
-			continue;
+		fi;
+	done;
+
+	if [ "${#present[@]}" -gt 0 ]; then
+		listFile="$(mktemp)";
+		trap 'rm -f "$listFile"' EXIT;
+		printf '%s\n' "${present[@]}" > "$listFile";
+
+		if [ "$dryRun" == "1" ]; then
+			dryFlag="-n";
 		fi;
 
-		if cmp -s "$src" "$file"; then
-			echo "  unchanged  ${file}";
-			unchanged=$((unchanged + 1));
-			continue;
-		fi;
-
-		echo "  updated    ${file}";
-		updated=$((updated + 1));
-		if [ "$dryRun" != "1" ]; then
-			cp "$src" "$file";
-		fi;
-	done < <(git ls-files -z);
+		while IFS= read -r line; do
+			case "$line" in
+				">"*)
+					flags="${line%% *}";
+					path="${line#* }";
+					if [ "${flags:1:1}" != "f" ]; then
+						continue;
+					fi;
+					if [[ "$flags" == *"+"* ]]; then
+						echo "  new        ${path}";
+						new=$((new + 1));
+					else
+						echo "  updated    ${path}";
+						updated=$((updated + 1));
+					fi;
+					;;
+				[.ch\<]*)
+					continue;
+					;;
+				*)
+					echo "$line" >&2;
+					;;
+			esac;
+		done < <(rsync -rlpDic --files-from="$listFile" --exclude-from="$IGNORE_FILE" ${dryFlag} "${HOME}/" "./");
+	fi;
 
 	echo "";
-	echo "missing: ${missing}, unchanged: ${unchanged}, updated: ${updated}";
+	echo "new: ${new}, updated: ${updated}, missing: ${missing}";
 	echo "";
 	git status --short;
 }
@@ -86,4 +198,7 @@ else
 	fi;
 fi;
 unset doIt;
-unset isExcluded;
+unset buildSyncList;
+unset collectRoots;
+unset hasDirectFiles;
+unset isIgnoredEntry;

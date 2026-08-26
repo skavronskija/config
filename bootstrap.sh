@@ -10,6 +10,7 @@ function doIt() {
 		--exclude ".osx" \
 		--exclude "bootstrap.sh" \
 		--exclude "gather.sh" \
+		--exclude ".gatherignore" \
 		--exclude "tests/" \
 		--exclude "README.md" \
 		--exclude "LICENSE-MIT.txt" \
