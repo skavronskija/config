@@ -77,7 +77,8 @@ plugins=(
   git
   zsh-autosuggestions
   docker 
-  docker-compose
+  aws
+  kubectl
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -147,8 +148,16 @@ if type "aws" > /dev/null; then
   complete -C '/usr/local/bin/aws_completer' aws
 fi
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-autoload -Uz compinit && compinit
+#export NVM_DIR="$HOME/.nvm"
+#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+#[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+#autoload -Uz compinit && compinit
 
+
+# pnpm
+export PNPM_HOME="/Users/antonskavronskij/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
