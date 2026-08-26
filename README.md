@@ -1,3 +1,22 @@
+# dotfiles
+
+Repo -> this machine:
+```bash
+./bootstrap.sh            # prompts before overwriting files in ~
+./bootstrap.sh --force
+```
+
+This machine -> repo:
+```bash
+./gather.sh --dry-run     # report only
+./gather.sh               # prompts before overwriting repo files
+./gather.sh --force
+```
+
+`gather.sh` only refreshes paths already tracked in the repo; anything not present on
+this machine is reported as `missing` and skipped, so the same repo works on Linux and
+macOS. Review with `git diff` and commit yourself - the script never commits.
+
 # common
 ```bash
 sudo apt update && \
