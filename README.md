@@ -1,3 +1,29 @@
+# dotfiles
+
+Repo -> this machine:
+```bash
+./bootstrap.sh            # prompts before overwriting files in ~
+./bootstrap.sh --force
+```
+
+This machine -> repo:
+```bash
+./gather.sh --dry-run     # report only
+./gather.sh               # prompts before overwriting repo files
+./gather.sh --force
+```
+
+`gather.sh` syncs whole directories back from `$HOME`, so newly created config files
+show up as untracked in `git status` for you to `git add` - it is not limited to paths
+already tracked in the repo. Which directories get synced is derived from the repo
+layout: a repo directory that directly contains files is synced recursively, one that
+does not is only descended into, so e.g. `~/.config` itself is never taken wholesale.
+Exclusions live in `.gatherignore`, using the same pattern syntax as `.gitignore`.
+Files are compared by content, so identical files are left completely untouched.
+Nothing is ever deleted, and anything not present on this machine is reported as
+`missing` and skipped, so the same repo works on Linux and macOS. Review with `git diff`
+and commit yourself - the script never commits.
+
 # common
 ```bash
 sudo apt update && \

@@ -1,0 +1,29 @@
+# repo infrastructure - lives only in the repo, never in $HOME
+/.git/
+/.idea/
+/bin/
+/tests/
+/README.md
+/bootstrap.sh
+/gather.sh
+/.gatherignore
+/.gitignore
+/LICENSE-MIT.txt
+/.osx
+
+# noise
+.DS_Store
+__pycache__/
+*.swp
+
+# kitty's own timestamped backups and session autosave state
+*.????????-??????.bak
+/.config/kitty/sessions/
+/.config/kitty/startup.kitty-session*
+
+# plugin payloads - installed by their managers, not config
+/.vim/plugged/
+/.hammerspoon/Spoons/
+
+# local state
+.claude/

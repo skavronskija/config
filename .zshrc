@@ -77,7 +77,6 @@ plugins=(
   git
   zsh-autosuggestions
   docker
-  docker-compose
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -146,8 +145,3 @@ fi
 if type "aws" > /dev/null; then
   complete -C '/usr/local/bin/aws_completer' aws
 fi
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-autoload -Uz compinit && compinit
